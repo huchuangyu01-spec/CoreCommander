@@ -92,6 +92,33 @@ class MacroOverlay(QWidget):
 
     def update_input_transparency(self):
         self.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents, self.locked)
+        try:
+            import ctypes
+            GWL_EXSTYLE = -20
+            WS_EX_TRANSPARENT = 0x00000020
+            WS_EX_LAYERED = 0x00080000
+            WS_EX_NOACTIVATE = 0x08000000
+            
+            hwnd = int(self.winId())
+            style = ctypes.windll.user32.GetWindowLongW(hwnd, GWL_EXSTYLE)
+            if self.locked:
+                new_style = style | WS_EX_TRANSPARENT | WS_EX_LAYERED | WS_EX_NOACTIVATE
+            else:
+                new_style = (style & ~WS_EX_TRANSPARENT) & ~WS_EX_NOACTIVATE
+            
+            ctypes.windll.user32.SetWindowLongW(hwnd, GWL_EXSTYLE, new_style)
+            
+            # Force style changes to take effect immediately
+            SWP_NOSIZE = 0x0001
+            SWP_NOMOVE = 0x0002
+            SWP_NOZORDER = 0x0004
+            SWP_FRAMECHANGED = 0x0020
+            ctypes.windll.user32.SetWindowPos(
+                hwnd, 0, 0, 0, 0, 0,
+                SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED
+            )
+        except Exception as e:
+            logger.error(f"Failed to update input transparency via ctypes: {e}")
 
     def set_locked(self, locked: bool):
         self.locked = locked

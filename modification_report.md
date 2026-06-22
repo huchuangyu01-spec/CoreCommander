@@ -2,6 +2,12 @@
 
 ## 修改内容报告 (Modification Report)
 
+### 2026-06-22 (第一百七十四轮: 修复 HUD 叠加层解锁状态下鼠标点击穿透的 Bug)
+- **修复 HUD 叠加层在非锁定状态下依然发生鼠标点击穿透的 Bug**：
+  - 修改了 [macro_overlay.py](file:///e:/源码/core_commander/ui/macro_overlay.py)：
+    - 引入 Windows 窗口扩展样式 `WS_EX_NOACTIVATE` (0x08000000) 配合 `WS_EX_TRANSPARENT` 进行动态开关控制。当 HUD 处于锁定状态时开启两者，防止其接受任何焦点与键鼠事件；当 HUD 处于解锁状态时同时移除两者，使得叠加层能够正常被拖拽、编辑和选定。
+    - 针对 Win32 API 样式修改的缓存特性，引入了 `SetWindowPos` 与 `SWP_FRAMECHANGED` 强制刷新标志，在修改 `GWL_EXSTYLE` 样式后立即通知系统刷新窗口帧，彻底解决了非锁定状态下拖拽/编辑时鼠标点击依旧穿透到下方背景页面的竞态缺陷。
+
 ### 2026-06-22 (第一百七十三轮: 修复由于动态包部署路径不匹配导致变声器页面空白的 Bug)
 - **修复 PyInstaller 6+ 动态包加载路径与 DLL 寻径异常**：
   - 修改了 [worker.py](file:///e:/源码/core_commander/core/deployment/worker.py)：
