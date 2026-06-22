@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  license-server:
+    build: .
+    container_name: license-server
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./licenses.db:/app/licenses.db
+    restart: unless-stopped
+    environment:
+      # 在下方替换为您自己的 RSA 私钥 PEM（若留空则自动启用默认开发私钥，生产环境建议配置）
+      - LICENSE_PRIVATE_KEY=""

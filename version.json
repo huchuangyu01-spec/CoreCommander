@@ -1,0 +1,15 @@
+{
+  "latest_version": "2.0",
+  "release_date": "2026-06-21",
+  "update_notes": {
+    "zh_CN": "重新设计了在线更新UI，关于本软件界面全新改版。",
+    "en_US": "Redesigned online update UI and revamped the About page."
+  },
+  "download_urls": {
+    "global": "https://github.com/huchuangyu01-spec/CoreCommander/releases/download/v2.0/CoreCommander_Setup.exe",
+    "china_mirrors": [
+      "https://gitee.com/kireto/CoreCommander/releases/download/v2.0/CoreCommander_Setup.exe"
+    ]
+  },
+  "installer_sha256": ""
+}
