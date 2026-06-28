@@ -1,0 +1,15 @@
+{
+  "latest_version": "2.1",
+  "release_date": "2026-06-28",
+  "update_notes": {
+    "zh_CN": "版本更新",
+    "en_US": "Version update"
+  },
+  "download_urls": {
+    "global": "https://github.com/huchuangyu01-spec/CoreCommander/releases/download/v2.1/CoreCommander_Setup.exe",
+    "china_mirrors": [
+      "https://mirror.ghproxy.com/https://github.com/huchuangyu01-spec/CoreCommander/releases/download/v2.1/CoreCommander_Setup.exe"
+    ]
+  },
+  "installer_sha256": "e0f87ced90516e7bef4fbe70146f267f2022041ea0674938db4beab881f3db74"
+}
